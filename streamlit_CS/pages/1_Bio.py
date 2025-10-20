@@ -13,7 +13,7 @@ FUN_FACTS = [
     "I’m learning Data Visualization.",
     "I want to build something fun.",
 ]
-PHOTO_PATH = "assets\your_photo.jpg"  # Put a file in repo root or set a URL
+PHOTO_PATH = assets\your_photo.jpg  # Put a file in repo root or set a URL
 
 # ---------- Layout ----------
 col1, col2 = st.columns([1, 2], vertical_alignment="center")
