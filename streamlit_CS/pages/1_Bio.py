@@ -34,7 +34,7 @@ def find_photo(filename="your_photo.jpg"):
 photo_src = find_photo("your_photo.jpg")  # Put a file in repo root or set a URL
 
 # ---------- Layout ----------
-col1, col2 = st.columns([2, 2], vertical_alignment="center") 
+col1, col2 = st.columns([2, 1], vertical_alignment="center") 
 
 with col1: 
     if photo_src:
