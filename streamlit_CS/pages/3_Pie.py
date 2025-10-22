@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 st.title("3_Pie - Pie Chart Visualization")
 
 # Read the CSV file
-data = pd.read_csv('data/pie_demo.csv')
+data = pd.read_csv('assets/data/pie_demo.csv')
 
 # Check if the CSV has been read correctly
 st.write("Data from CSV:", data)
