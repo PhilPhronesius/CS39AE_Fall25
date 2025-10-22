@@ -13,7 +13,24 @@ FUN_FACTS = [
     "I’m learning Data Visualization.",
     "I want to build something fun.",
 ]
-PHOTO_PATH = "assets\your_photo.jpg"  # Put a file in repo root or set a URL
+def find_photo(filename="your_photo.jpg"):
+    # Photo was saved in assets folder
+    try:
+        script_dir = Path(__file__).resolve().parent
+    except NameError:
+        script_dir = Path.cwd()
+ 
+    candidates = [
+        script_dir / "assets" / filename,          # pages/assets/...
+        script_dir.parent / "assets" / filename,   # root/assets/... (common)
+        Path("assets") / filename,                 # cwd/assets/...
+    ]
+    for p in candidates:
+        if p.exists():
+            return str(p)
+    return None
+ 
+photo_src = find_photo("your_photo.jpg")  # Put a file in repo root or set a URL
 
 # ---------- Layout ----------
 col1, col2 = st.columns([1, 2], vertical_alignment="center")
