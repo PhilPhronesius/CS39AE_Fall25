@@ -38,7 +38,7 @@ col1, col2 = st.columns([1, 2], vertical_alignment="center")
 
 with col1: 
     if photo_src:
-        st.image(photo_src, caption=NAME, use_container_width=False)
+        st.image(photo_src, caption=NAME, width=250)
     else:
         st.info( "📷 Place Ren_Photo.jpg inside an assets/ folder at the app root " 
                 "or update the path in find_photo()." )
