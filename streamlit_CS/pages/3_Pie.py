@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Title of the page
-st.title("3_Pie - Pie Chart Visualization")
+st.title("Pie Chart Visualization")
 
 # Read the CSV file
 data = pd.read_csv('streamlit_CS/assets/data/pie_demo.csv')
