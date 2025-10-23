@@ -15,22 +15,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("📡 Simple Live Data Demo (CoinGecko)")
+st.title("📡 Simple Live Data Demo (Open-Meteo)")
 st.caption("Friendly demo with manual refresh + fallback data so it never crashes.")
-
-COINS = ["bitcoin", "ethereum"]
-VS = "usd"
-HEADERS = {"User-Agent": "msudenver-dataviz-class/1.0", "Accept": "application/json"}
-
-def build_url(ids):
-    return f"https://api.coingecko.com/api/v3/simple/price?ids={','.join(ids)}&vs_currencies={VS}"
-
-API_URL = build_url(COINS)
-
-# Tiny sample to keep the demo working even if the API is rate-limiting
-SAMPLE_DF = pd.DataFrame(
-    [{"coin": "bitcoin", VS: 68000}, {"coin": "ethereum", VS: 3500}]
-)
 
 lat, lon = 39.7392, -104.9903  # Denver
 
@@ -56,16 +42,11 @@ auto_refresh = st.toggle("Enable auto-refresh", value=False)
 # Show current refresh time
 st.caption(f"Last refreshed at: {time.strftime('%H:%M:%S')}")
 
-st.subheader("Prices")
-df, err = get_weather(API_URL)
-
-if err:
-    st.warning(f"{err}\nShowing sample data so the demo continues.")
-    df = SAMPLE_DF.copy()
+df = get_weather(API_URL)
 
 st.dataframe(df, use_container_width=True)
 
-fig = px.bar(df, x="coin", y=VS, title=f"Current price ({VS.upper()})")
+fig = px.bar(df, x="Time", y=["Temperature", "Wind"], title=f"Current Weather")
 st.plotly_chart(fig, use_container_width=True)
 
 # If auto-refresh is ON, wait and rerun the app
