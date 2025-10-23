@@ -47,7 +47,7 @@ df = get_weather()
 st.dataframe(df, use_container_width=True)
 
 fig = px.line(df, x="time", y=["temperature", "wind"], title=f"Current Weather")
-fig.update_traces(mode="markers+line")
+fig.update_traces(mode="markers+lines")
 st.plotly_chart(fig, use_container_width=True)
 
 # If auto-refresh is ON, wait and rerun the app
