@@ -24,11 +24,18 @@ wurl = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&c
 @st.cache_data(ttl=600, show_spinner=False)
 
 def get_weather():
-    r = requests.get(wurl, timeout=10); r.raise_for_status()
-    j = r.json()["current"]
-    return pd.DataFrame([{"time": pd.to_datetime(j["time"]),
+    try:
+        r = requests.get(wurl, timeout=10); r.raise_for_status()
+        j = r.json()["current"]
+        return pd.DataFrame([{"time": pd.to_datetime(j["time"]),
                           "temperature": j["temperature_2m"],
                           "wind": j["wind_speed_10m"]}])
+
+    except requests.RequestException as e:
+        return pd.DataFrame([{
+            "time": "Error",
+            "temperature": f"Error: {e}",
+            "wind": "Error"}])
 
   # --- Auto Refresh Controls ---
 st.subheader("🔁 Auto Refresh Settings")
