@@ -77,5 +77,5 @@ st.plotly_chart(fig, use_container_width=True)
 # If auto-refresh is ON, wait and rerun the app
 if auto_refresh:
     time.sleep(refresh_sec)
-  fetch_prices.clear()
+    fetch_prices.clear()
     st.rerun()
