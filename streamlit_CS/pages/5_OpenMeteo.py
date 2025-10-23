@@ -46,7 +46,7 @@ df = get_weather()
 
 st.dataframe(df, use_container_width=True)
 
-fig = px.bar(df, x="Time", y=["Temperature", "Wind"], title=f"Current Weather")
+fig = px.bar(df, x="time", y=["temperature", "wind"], title=f"Current Weather")
 st.plotly_chart(fig, use_container_width=True)
 
 # If auto-refresh is ON, wait and rerun the app
