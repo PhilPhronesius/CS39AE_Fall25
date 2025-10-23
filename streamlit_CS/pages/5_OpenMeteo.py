@@ -57,7 +57,7 @@ auto_refresh = st.toggle("Enable auto-refresh", value=False)
 st.caption(f"Last refreshed at: {time.strftime('%H:%M:%S')}")
 
 st.subheader("Prices")
-df, err = fetch_prices(API_URL)
+df, err = get_weather(API_URL)
 
 if err:
     st.warning(f"{err}\nShowing sample data so the demo continues.")
