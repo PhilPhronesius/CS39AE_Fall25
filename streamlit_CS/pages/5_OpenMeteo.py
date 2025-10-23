@@ -42,7 +42,7 @@ auto_refresh = st.toggle("Enable auto-refresh", value=False)
 # Show current refresh time
 st.caption(f"Last refreshed at: {time.strftime('%H:%M:%S')}")
 
-df = get_weather(API_URL)
+df = get_weather()
 
 st.dataframe(df, use_container_width=True)
 
