@@ -32,12 +32,10 @@ SAMPLE_DF = pd.DataFrame(
     [{"coin": "bitcoin", VS: 68000}, {"coin": "ethereum", VS: 3500}]
 )
 
-@st.cache_data(ttl=300, show_spinner=False)   # Cache for 5 minutes
-
 lat, lon = 39.7392, -104.9903  # Denver
 
 wurl = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,wind_speed_10m"
-@st.cache_data(ttl=600)
+@st.cache_data(ttl=600, show_spinner=False)
 
 def get_weather():
     r = requests.get(wurl, timeout=10); r.raise_for_status()
