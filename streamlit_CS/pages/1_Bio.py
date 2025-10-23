@@ -1,13 +1,6 @@
 import streamlit as st
 from pathlib import Path
 
-st.set_page_config(
-    page_title="Phil's Bio",  # Title shown in the browser tab
-    page_icon=":bust_in_silhouette:",  # Icon shown in the browser tab (optional emoji)
-    layout="wide",  # You can change to 'centered' if you prefer a centered layout
-    initial_sidebar_state="collapsed"  # Optional: Control the initial sidebar state
-)
-
 st.title("👋 My Bio")
 
 # ---------- TODO: Replace with your own info ----------
