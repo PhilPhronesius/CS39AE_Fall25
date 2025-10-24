@@ -49,15 +49,25 @@ auto_refresh = st.toggle("Enable auto-refresh", value=False)
 # Show current refresh time
 st.caption(f"Last refreshed at: {time.strftime('%H:%M:%S')}")
 
+if "temperature_history" not in st.session_state:
+    st.session_state.temperature_history = []
+
 df = get_weather()
 
-st.dataframe(df, use_container_width=True)
+if isinstance(df, pd.DataFrame) and not df.empty and "temperature" in df.columns:
+    st.session_state.temperature_history.append({
+        "time": df["time"].iloc[0],
+        "temperature": df["temperature"].iloc[0]})
+
+temperature_df = pd.DataFrame(st.session_state.temperature_history)
 
 fig = px.line(df, x="time", y=["temperature"],
               labels = {"time": "Time", "temperature": "Temp. (°C)"},
               title=f"Current Weather")
 fig.update_traces(mode="markers+lines")
+
 st.plotly_chart(fig, use_container_width=True)
+st.dataframe(df, use_container_width=True)
 
 # If auto-refresh is ON, wait and rerun the app
 if auto_refresh:
