@@ -54,6 +54,8 @@ if "temperature_history" not in st.session_state:
 
 df = get_weather()
 
+data["time"] = pd.Timestamp.now()
+
 st.dataframe(df, use_container_width=True)
 
 if isinstance(df, pd.DataFrame) and not df.empty and "temperature" in df.columns:
