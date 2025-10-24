@@ -53,8 +53,8 @@ df = get_weather()
 
 st.dataframe(df, use_container_width=True)
 
-fig = px.line(df, x="time", y=["temperature", "wind"],
-              labels = {"value": "Measurement", "time": "Time"},
+fig = px.line(df, x="time", y=["temperature"],
+              labels = {"time": "Time", "temperature": "Temp. (°C)"},
               title=f"Current Weather")
 fig.update_traces(mode="markers+lines")
 st.plotly_chart(fig, use_container_width=True)
