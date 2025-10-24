@@ -54,7 +54,7 @@ if "temperature_history" not in st.session_state:
 
 df = get_weather()
 
-data["time"] = pd.Timestamp.now()
+df["time"] = pd.Timestamp.now()
 
 st.dataframe(df, use_container_width=True)
 
@@ -66,7 +66,7 @@ if isinstance(df, pd.DataFrame) and not df.empty and "temperature" in df.columns
 temperature_df = pd.DataFrame(st.session_state.temperature_history)
 
 fig = px.line(df, x="time", y=["temperature"],
-              labels = {"time": "Time", "temperature": "Temp. (°C)"},
+              labels = {"time": "Time", "value": "Temp. (°C)"},
               title=f"Current Weather")
 fig.update_traces(mode="markers+lines")
 
