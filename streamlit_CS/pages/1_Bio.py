@@ -41,7 +41,7 @@ with col1:
     if photo_src:
         img = Image.open(photo_src)
         img = ImageOps.exif_transpose(img)
-        st.image(img, caption=NAME, width=150)
+        st.image(img, caption=NAME, use_container_width=True)
     else:
         st.info( "📷 Place Ren_Photo.jpg inside an assets/ folder at the app root " 
                 "or update the path in find_photo()." )
