@@ -51,10 +51,10 @@ st.caption(f"Last refreshed at: {time.strftime('%H:%M:%S')}")
 
 if "temperature_history" not in st.session_state:
     st.session_state.temperature_history = []
-    
-st.dataframe(df, use_container_width=True)
 
 df = get_weather()
+
+st.dataframe(df, use_container_width=True)
 
 if isinstance(df, pd.DataFrame) and not df.empty and "temperature" in df.columns:
     st.session_state.temperature_history.append({
