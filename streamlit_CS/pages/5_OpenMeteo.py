@@ -51,6 +51,8 @@ st.caption(f"Last refreshed at: {time.strftime('%H:%M:%S')}")
 
 if "temperature_history" not in st.session_state:
     st.session_state.temperature_history = []
+    
+st.dataframe(df, use_container_width=True)
 
 df = get_weather()
 
@@ -67,7 +69,6 @@ fig = px.line(df, x="time", y=["temperature"],
 fig.update_traces(mode="markers+lines")
 
 st.plotly_chart(fig, use_container_width=True)
-st.dataframe(df, use_container_width=True)
 
 # If auto-refresh is ON, wait and rerun the app
 if auto_refresh:
