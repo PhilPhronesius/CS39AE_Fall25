@@ -65,8 +65,8 @@ if isinstance(df, pd.DataFrame) and not df.empty and "temperature" in df.columns
 
 temperature_df = pd.DataFrame(st.session_state.temperature_history)
 
-fig = px.line(temperature_df, x="time", y=["temperature"],
-              labels = {"time": "Time", "value": "Temp. (°C)"},
+fig = px.line(temperature_df, x="time", y=["temperature", "wind"],
+              labels = {"time": "Time", "value": "Temp.(°C) / Meters/Second"},
               title=f"Current Weather")
 fig.update_traces(mode="markers+lines")
 
