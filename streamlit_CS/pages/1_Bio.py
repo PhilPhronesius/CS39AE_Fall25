@@ -1,5 +1,6 @@
 import streamlit as st
 from pathlib import Path
+from PIL import Image, ImageOps
 
 st.title("👋 My Bio")
 
@@ -38,6 +39,8 @@ col1, col2 = st.columns([1, 2], vertical_alignment="center")
 
 with col1: 
     if photo_src:
+        img = Image.open(photo_src)
+        img = ImageOps.exif_transpose(img)
         st.image(photo_src, caption=NAME, use_container_width=True)
     else:
         st.info( "📷 Place Ren_Photo.jpg inside an assets/ folder at the app root " 
