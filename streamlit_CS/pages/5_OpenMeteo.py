@@ -61,7 +61,8 @@ st.dataframe(df, use_container_width=True)
 if isinstance(df, pd.DataFrame) and not df.empty and "temperature" in df.columns:
     st.session_state.temperature_history.append({
         "time": df["time"].iloc[0],
-        "temperature": df["temperature"].iloc[0]})
+        "temperature": df["temperature"].iloc[0],
+        "wind": df["wind"].iloc[0]})
 
 temperature_df = pd.DataFrame(st.session_state.temperature_history)
 
