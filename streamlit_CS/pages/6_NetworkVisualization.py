@@ -13,7 +13,7 @@ friendship_data = [("Alice", "Bob"), ("Alice", "Charlie"), ("Bob", "Charlie"),
                    ("Grace", "Jack"), ("Charlie", "Frank"), ("Alice", "Eve"),
                    ("Bob", "Jack")]
 
-friendship_data_with_weights = [(a, b, random.randint(1, 10)) for a, b in friendship_data]
+friendship_data_with_weights = [(a, b, random.randint(0, 1)) for a, b in friendship_data]
 
 G = nx.Graph()
 for sender, receiver, weight in friendship_data_with_weights:
