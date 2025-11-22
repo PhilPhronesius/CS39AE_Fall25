@@ -127,6 +127,7 @@ with col1:
 with col2:
   display_adjacency_matrix()
 
+display_centralities()
 
 col1, col2 = st.columns(2)
 
