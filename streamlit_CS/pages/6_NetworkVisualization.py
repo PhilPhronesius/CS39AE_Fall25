@@ -43,7 +43,7 @@ def plot_graph():
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color='lightgreen', edge_color='gray', font_size=10, font_weight='bold')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=weights)
     plt.title("Friendship Network with Random Weights")
-  st.pyplot(session_state.graph_fig)
+  st.pyplot(st.session_state.graph_fig)
 
 def display_adjacency_matrix():
     adjacency_matrix = nx.to_numpy_array(G)
