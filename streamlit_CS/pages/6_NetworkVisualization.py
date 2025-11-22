@@ -62,20 +62,17 @@ def display_centralities():
     betweenness_centrality = nx.betweenness_centrality(G, weight='weight')
     closeness_centrality = nx.closeness_centrality(G)
     
-    st.write("**Betweenness Centrality**:")
     betweenness_df = pd.DataFrame(list(betweenness_centrality.items()), columns=["Node", "Betweenness Centrality"])
-    st.write(betweenness_df)
-
-    st.write("**Closeness Centrality**:")
     closeness_df = pd.DataFrame(list(closeness_centrality.items()), columns=["Node", "Closeness Centrality"])
-    st.write(closeness_df)
 
-col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2)
 
-with col1:
-  betweenness_df()
-with col2:
-  closeness_df()
+    with col1:
+      st.write("**Betweenness Centrality**:")
+      st.write(betweenness_df)
+    with col2:
+      st.write("**Closeness Centrality**:")
+      st.write(closeness_df)
 
 def display_community_detection():
   if st.session_state.community_fig is None:
@@ -130,13 +127,12 @@ with col1:
 with col2:
   display_adjacency_matrix()
 
-#col1, col2 = st.columns(2)
 
-#with col1:
-  #display_centralities()
-#with col2:
-display_community_detection()
+col1, col2 = st.columns(2)
 
-display_influential_person()
+with col1:
+  display_community_detection()
+with col2:
+  display_influential_person()
 
 findings()
