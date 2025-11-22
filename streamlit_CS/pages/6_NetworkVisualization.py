@@ -34,9 +34,9 @@ def display_adjacency_matrix():
     adjacency_matrix = nx.to_numpy_array(G)
     
     st.write("**Adjacency Matrix**:")
-    fig, ax = plt.subplots(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(8, 8))
     cax = ax.matshow(adjacency_matrix, cmap='binary')
-    plt.colorbar(cax)
+    plt.colorbar(cax, 0.8)
     
     labels = list(G.nodes())
     ax.set_xticks(np.arange(len(labels)))
