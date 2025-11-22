@@ -70,6 +70,13 @@ def display_centralities():
     closeness_df = pd.DataFrame(list(closeness_centrality.items()), columns=["Node", "Closeness Centrality"])
     st.write(closeness_df)
 
+col1, col2 = st.columns(2)
+
+with col1:
+  betweenness_df()
+with col2:
+  closeness_df()
+
 def display_community_detection():
   if st.session_state.community_fig is None:
     communities = greedy_modularity_communities(G)
@@ -123,12 +130,12 @@ with col1:
 with col2:
   display_adjacency_matrix()
 
-col1, col2 = st.columns(2)
+#col1, col2 = st.columns(2)
 
-with col1:
-  display_centralities()
-with col2:
-  display_community_detection()
+#with col1:
+  #display_centralities()
+#with col2:
+display_community_detection()
 
 display_influential_person()
 
