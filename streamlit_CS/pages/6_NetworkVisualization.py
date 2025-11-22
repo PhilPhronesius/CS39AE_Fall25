@@ -94,6 +94,7 @@ def display_community_detection():
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
     plt.title("Network Colored by Community")
+    plt.tight_layout()
   st.pyplot(st.session_state.community_fig)
 
 
@@ -112,6 +113,7 @@ def display_influential_person():
     plt.figure(figsize=(8, 6))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=node_colors, edge_color='gray', font_size=10, font_weight='bold')
     plt.title("Friendship Network with Most Influential Person Highlighted")
+    plt.tight_layout()
   st.pyplot(st.session_state.influential_fig)
 
 def findings():
