@@ -24,9 +24,6 @@ pos = nx.spring_layout(G, seed=42)
 if 'graph_fig' not in st.session_state:
     st.session_state.graph_fig = None
 
-if 'adjacency_matrix_fig' not in st.session_state:
-    st.session_state.adjacency_matrix_fig = None
-
 if 'community_fig' not in st.session_state:
     st.session_state.community_fig = None
 
@@ -35,7 +32,6 @@ if 'influential_fig' not in st.session_state:
 
 def plot_graph():
   if st.session_state.graph_fig is None:
-    #pos = nx.spring_layout(G) 
     plt.figure(figsize=(8, 6))
     
     weights = nx.get_edge_attributes(G, 'weight')
@@ -75,6 +71,7 @@ def display_centralities():
     st.write(closeness_df)
 
 def display_community_detection():
+  if st.session_state.community_fig is None:
     communities = greedy_modularity_communities(G)
     
     st.write("**Community Detection**:")
@@ -94,11 +91,11 @@ def display_community_detection():
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
     plt.title("Network Colored by Community")
-    st.pyplot(plt)
+  st.pyplot(st.session_state.community_fig)
 
 
 def display_influential_person():
-
+  if st.session_state.influential_fig is None:
     betweenness_centrality = nx.betweenness_centrality(G, weight = 'weight')
     degree_centrality = nx.degree_centrality(G)
     most_influential_person = max(betweenness_centrality, key=betweenness_centrality.get)
@@ -113,7 +110,7 @@ def display_influential_person():
     plt.figure(figsize=(8, 6))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=node_colors, edge_color='gray', font_size=10, font_weight='bold')
     plt.title("Friendship Network with Most Influential Person Highlighted")
-    st.pyplot(plt)
+  st.pyplot(st.session_state.influential_fig)
 
 def findings():
     st.write(f"**Findings**:")
