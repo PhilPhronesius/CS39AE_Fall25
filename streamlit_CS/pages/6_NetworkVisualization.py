@@ -116,4 +116,4 @@ display_community_detection()
 
 display_influential_person()
 
-display_findings()
+findings()
