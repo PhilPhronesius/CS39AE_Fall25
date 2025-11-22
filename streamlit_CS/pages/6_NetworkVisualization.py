@@ -86,7 +86,6 @@ def display_community_detection():
 
     community_colors = [palette[node_to_comm[n]] for n in G.nodes()]
 
-    pos = nx.spring_layout(G)
     plt.figure(figsize=(8, 6))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
@@ -105,8 +104,7 @@ def display_influential_person():
 
     st.write(f"**Most Connected Person (Degree)**: {most_connected_person}")
     st.write(f"**Most Influential Person (Betweenness)**: {most_influential_person}")
-    
-    pos = nx.spring_layout(G)
+  
     plt.figure(figsize=(8, 6))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=node_colors, edge_color='gray', font_size=10, font_weight='bold')
     plt.title("Friendship Network with Most Influential Person Highlighted")
@@ -118,13 +116,19 @@ def findings():
 
 st.title("Friendship Network in a College Class")
 
-plot_graph()
+col1, col2 = st.columns(2)
 
-display_adjacency_matrix()
+with col1:
+  plot_graph()
+with col2:
+  display_adjacency_matrix()
 
-display_centralities()
+col1, col2 = st.columns(2)
 
-display_community_detection()
+with col1:
+  display_centralities()
+with col2:
+  display_community_detection()
 
 display_influential_person()
 
