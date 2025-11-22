@@ -91,7 +91,7 @@ def display_community_detection():
     community_colors = [palette[node_to_comm[n]] for n in G.nodes()]
 
     plt.figure(figsize=(8, 6))
-    nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=5, font_weight="bold", arrows=True)
+    nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
     plt.title("Network Colored by Community")
   st.pyplot(st.session_state.community_fig)
