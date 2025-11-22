@@ -35,7 +35,7 @@ if 'influential_fig' not in st.session_state:
 
 def plot_graph():
   if st.session_state.graph_fig is None:
-    pos = nx.spring_layout(G) 
+    #pos = nx.spring_layout(G) 
     plt.figure(figsize=(8, 6))
     
     weights = nx.get_edge_attributes(G, 'weight')
