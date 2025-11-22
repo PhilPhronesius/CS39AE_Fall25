@@ -32,7 +32,7 @@ if 'influential_fig' not in st.session_state:
 
 def plot_graph():
   if st.session_state.graph_fig is None:
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 8))
     
     weights = nx.get_edge_attributes(G, 'weight')
     
@@ -45,9 +45,9 @@ def display_adjacency_matrix():
     adjacency_matrix = nx.to_numpy_array(G)
     
     st.write("**Adjacency Matrix**:")
-    fig, ax = plt.subplots(figsize=(8, 8))
+    fig, ax = plt.subplots(figsize=(9, 9))
     cax = ax.matshow(adjacency_matrix, cmap='binary')
-    plt.colorbar(cax, shrink = 0.8)
+    plt.colorbar(cax, shrink = 0.9)
     
     labels = list(G.nodes())
     ax.set_xticks(np.arange(len(labels)))
@@ -90,7 +90,7 @@ def display_community_detection():
 
     community_colors = [palette[node_to_comm[n]] for n in G.nodes()]
 
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 8))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
     plt.title("Network Colored by Community")
@@ -109,7 +109,7 @@ def display_influential_person():
     st.write(f"**Most Connected Person (Degree)**: {most_connected_person}")
     st.write(f"**Most Influential Person (Betweenness)**: {most_influential_person}")
   
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 8))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=node_colors, edge_color='gray', font_size=10, font_weight='bold')
     plt.title("Friendship Network with Most Influential Person Highlighted")
   st.pyplot(st.session_state.influential_fig)
