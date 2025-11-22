@@ -19,7 +19,22 @@ G = nx.Graph()
 for sender, receiver, weight in friendship_data_with_weights:
     G.add_edge(sender, receiver, weight=weight)
 
+pos = nx.spring_layout(G, seed=42)
+
+if 'graph_fig' not in st.session_state:
+    st.session_state.graph_fig = None
+
+if 'adjacency_matrix_fig' not in st.session_state:
+    st.session_state.adjacency_matrix_fig = None
+
+if 'community_fig' not in st.session_state:
+    st.session_state.community_fig = None
+
+if 'influential_fig' not in st.session_state:
+    st.session_state.influential_fig = None
+
 def plot_graph():
+  if st.session_state.graph_fig is None:
     pos = nx.spring_layout(G) 
     plt.figure(figsize=(8, 6))
     
@@ -28,7 +43,7 @@ def plot_graph():
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color='lightgreen', edge_color='gray', font_size=10, font_weight='bold')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=weights)
     plt.title("Friendship Network with Random Weights")
-    st.pyplot(plt)
+  st.pyplot(session_state.graph_fig)
 
 def display_adjacency_matrix():
     adjacency_matrix = nx.to_numpy_array(G)
