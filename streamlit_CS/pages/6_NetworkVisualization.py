@@ -100,6 +100,10 @@ def display_influential_person():
     plt.title("Friendship Network with Most Influential Person Highlighted")
     st.pyplot(plt)
 
+def findings():
+    st.write(f"**Findings**:")
+    st.write("As we can see from our graphs, the most connected and influential person in spreading information within the network is Bob. Despite other friends having the same amount of connections, Bob knows at least one person in each community as we can see from the **Network Colored by Community** graph. This is further supported by the **Betweenness** and **Closeness** data tables as they show Bob's values being the greatest.")
+
 st.title("Friendship Network in a College Class")
 
 plot_graph()
@@ -111,3 +115,5 @@ display_centralities()
 display_community_detection()
 
 display_influential_person()
+
+display_findings()
