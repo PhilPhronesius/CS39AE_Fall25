@@ -1,50 +1,71 @@
 import streamlit as st
 import networkx as nx
 import matplotlib.pyplot as plt
+import random
+import pandas as pd
 import numpy as np
 from networkx.algorithms.community import greedy_modularity_communities
 
-phishing_data = [("Alice", "Bob", 1), ("Alice", "Charlie", 1), ("Bob", "Charlie", 1),
-                 ("Charlie", "Diana", 1), ("Diana", "Eve", 1), ("Bob", "Diana", 1),
-                 ("Frank", "Eve", 1), ("Eve", "Ian", 1), ("Diana", "Ian", 1),
-                 ("Ian", "Grace", 1), ("Grace", "Hannah", 1), ("Hannah", "Jack", 1),
-                 ("Grace", "Jack", 1), ("Charlie", "Frank", 1), ("Alice", "Eve", 1),
-                 ("Bob", "Jack", 1)]
+friendship_data = [("Alice", "Bob"), ("Alice", "Charlie"), ("Bob", "Charlie"),
+                   ("Charlie", "Diana"), ("Diana", "Eve"), ("Bob", "Diana"),
+                   ("Frank", "Eve"), ("Eve", "Ian"), ("Diana", "Ian"),
+                   ("Ian", "Grace"), ("Grace", "Hannah"), ("Hannah", "Jack"),
+                   ("Grace", "Jack"), ("Charlie", "Frank"), ("Alice", "Eve"),
+                   ("Bob", "Jack")]
 
-G = nx.DiGraph()
-for sender, receiver, weight in phishing_data:
+friendship_data_with_weights = [(a, b, random.randint(1, 10)) for a, b in friendship_data]
+
+G = nx.Graph()
+for sender, receiver, weight in friendship_data_with_weights:
     G.add_edge(sender, receiver, weight=weight)
 
 def plot_graph():
-    pos = nx.spring_layout(G)
+    pos = nx.spring_layout(G) 
     plt.figure(figsize=(10, 8))
+    
     weights = nx.get_edge_attributes(G, 'weight')
-    nx.draw(
-        G, pos, with_labels=True, node_size=3000, node_color='skyblue', edge_color='gray', font_size=10, font_weight='bold'
-    )
+    
+    nx.draw(G, pos, with_labels=True, node_size=3000, node_color='lightgreen', edge_color='gray', font_size=10, font_weight='bold')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=weights)
-    plt.title("Friendship Network with Weighted Edges")
+    plt.title("Friendship Network with Random Weights")
     st.pyplot(plt)
+
+def display_adjacency_matrix():
+    adjacency_matrix = nx.to_numpy_array(G)
+    
+    st.write("**Adjacency Matrix**:")
+    fig, ax = plt.subplots(figsize=(8, 8))
+    cax = ax.matshow(adjacency_matrix, cmap='binary')
+    plt.colorbar(cax)
+    
+    labels = list(G.nodes())
+    ax.set_xticks(np.arange(len(labels)))
+    ax.set_yticks(np.arange(len(labels)))
+    ax.set_xticklabels(labels)
+    ax.set_yticklabels(labels)
+    
+    plt.title("Adjacency Matrix of the Friendship Network")
+    st.pyplot(fig)
 
 def display_centralities():
     betweenness_centrality = nx.betweenness_centrality(G, weight='weight')
     closeness_centrality = nx.closeness_centrality(G)
     
-    st.write("Betweenness Centrality:")
-    for node, score in betweenness_centrality.items():
-        st.write(f"{node}: {score:.4f}")
+    st.write("**Betweenness Centrality**:")
+    betweenness_df = pd.DataFrame(list(betweenness_centrality.items()), columns=["Node", "Betweenness Centrality"])
+    st.write(betweenness_df)
 
-    st.write("Closeness Centrality:")
-    for node, score in closeness_centrality.items():
-        st.write(f"{node}: {score:.4f}")
+    st.write("**Closeness Centrality**:")
+    closeness_df = pd.DataFrame(list(closeness_centrality.items()), columns=["Node", "Closeness Centrality"])
+    st.write(closeness_df)
 
 def display_community_detection():
     communities = greedy_modularity_communities(G)
-    st.write("Community Detection (Greedy Modularity):")
+    
+    st.write("**Community Detection**:")
     for i, community in enumerate(communities, 1):
         st.write(f"Community {i}: {list(community)}")
-
-
+    
     palette = ["tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple"]
     node_to_comm = {}
     for c_index, comm in enumerate(communities):
@@ -55,17 +76,35 @@ def display_community_detection():
 
     pos = nx.spring_layout(G)
     plt.figure(figsize=(10, 8))
-    nx.draw(
-        G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True
-    )
+    nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
     plt.title("Network Colored by Community")
     st.pyplot(plt)
 
-st.title("Network Analysis with Streamlit")
+
+def display_influential_person():
+    
+    degree_centrality = nx.degree_centrality(G)
+    most_influential_person = max(degree_centrality, key=degree_centrality.get)
+    
+    node_colors = ['lightblue' if node == most_influential_person else 'lightgreen' for node in G.nodes()]
+    
+    st.write(f"**Most Influential Person**: {most_influential_person}")
+    
+    pos = nx.spring_layout(G)
+    plt.figure(figsize=(10, 8))
+    nx.draw(G, pos, with_labels=True, node_size=3000, node_color=node_colors, edge_color='gray', font_size=10, font_weight='bold')
+    plt.title("Friendship Network with Most Influential Person Highlighted")
+    st.pyplot(plt)
+
+st.title("Friendship Network in a College Class")
 
 plot_graph()
+
+display_adjacency_matrix()
 
 display_centralities()
 
 display_community_detection()
+
+display_influential_person()
