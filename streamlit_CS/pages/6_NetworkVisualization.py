@@ -21,7 +21,7 @@ for sender, receiver, weight in friendship_data_with_weights:
 
 def plot_graph():
     pos = nx.spring_layout(G) 
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(8, 6))
     
     weights = nx.get_edge_attributes(G, 'weight')
     
@@ -34,7 +34,7 @@ def display_adjacency_matrix():
     adjacency_matrix = nx.to_numpy_array(G)
     
     st.write("**Adjacency Matrix**:")
-    fig, ax = plt.subplots(figsize=(8, 8))
+    fig, ax = plt.subplots(figsize=(6, 6))
     cax = ax.matshow(adjacency_matrix, cmap='binary')
     plt.colorbar(cax)
     
@@ -75,7 +75,7 @@ def display_community_detection():
     community_colors = [palette[node_to_comm[n]] for n in G.nodes()]
 
     pos = nx.spring_layout(G)
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(8, 6))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=community_colors, edge_color="gray", font_size=10, font_weight="bold", arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
     plt.title("Network Colored by Community")
@@ -83,16 +83,19 @@ def display_community_detection():
 
 
 def display_influential_person():
-    
+
+    betweenness_centrality = nx.betweenness_centrality(G, weight = 'weight')
     degree_centrality = nx.degree_centrality(G)
-    most_influential_person = max(degree_centrality, key=degree_centrality.get)
-    
+    most_influential_person = max(betweenness_centrality, key=betweenness_centrality.get)
+    most_connected_person = max(degree_centrality, key=degree_centrality.get)
+  
     node_colors = ['lightblue' if node == most_influential_person else 'lightgreen' for node in G.nodes()]
-    
-    st.write(f"**Most Influential Person**: {most_influential_person}")
+
+    st.write(f"**Most Connected Person (Degree)**: {most_connected_person}")
+    st.write(f"**Most Influential Person (Betweenness)**: {most_influential_person}")
     
     pos = nx.spring_layout(G)
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(8, 6))
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color=node_colors, edge_color='gray', font_size=10, font_weight='bold')
     plt.title("Friendship Network with Most Influential Person Highlighted")
     st.pyplot(plt)
